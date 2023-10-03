@@ -5,14 +5,14 @@ Imports Microsoft.Xna.Framework.Input
 Public Class Game1
     Inherits Game
 
-    Private _graphics As GraphicsDeviceManager
-    Private _spriteBatch As SpriteBatch
-    Private _texture As Texture2D
+    Private gdm As GraphicsDeviceManager
+    Private mainSB As SpriteBatch
+    Private box As Texture2D
 
-    Private _pos As Vector2
+    Private pos As Vector2
 
     Public Sub New()
-        _graphics = New GraphicsDeviceManager(Me)
+        gdm = New GraphicsDeviceManager(Me)
         Content.RootDirectory = "Contents"
         IsMouseVisible = True
     End Sub
@@ -26,9 +26,21 @@ Public Class Game1
 
 
     Protected Overrides Sub LoadContent()
-        _spriteBatch = New SpriteBatch(GraphicsDevice)
-        _texture = Content.Load(Of Texture2D)("b2.png")
+        mainSB = New SpriteBatch(GraphicsDevice)
+
+        ' by Limezu: https://limezu.itch.io/modernexteriors
+        box = Content.Load(Of Texture2D)("box")
     End Sub
+
+
+    Function ScreenWidth%()
+        ScreenWidth = GraphicsDevice.Viewport.Width
+    End Function
+
+
+    Function ScreenHeight%()
+        ScreenHeight = GraphicsDevice.Viewport.Height
+    End Function
 
 
     Protected Overrides Sub Update(gameTime As GameTime)
@@ -36,24 +48,30 @@ Public Class Game1
         Dim kbstate = Keyboard.GetState
 
         ' Todo: Your update code here
+
         If kbstate.IsKeyDown(Keys.Escape) Then _
-            Me.Exit()
+            [Exit]()
 
-        If kbstate.IsKeyDown(Keys.Left) Then
-            _pos.X -= 5
-        End If
+        If kbstate.IsKeyDown(Keys.Left) Then _
+            pos.X -= 5
 
-        If kbstate.IsKeyDown(Keys.Right) Then
-            _pos.X += 5
-        End If
+        If kbstate.IsKeyDown(Keys.Right) Then _
+            pos.X += 5
 
-        If kbstate.IsKeyDown(Keys.Up) Then
-            _pos.Y -= 5
-        End If
+        If kbstate.IsKeyDown(Keys.Up) Then _
+            pos.Y -= 5
 
-        If kbstate.IsKeyDown(Keys.Down) Then
-            _pos.Y += 5
-        End If
+        If kbstate.IsKeyDown(Keys.Down) Then _
+            pos.Y += 5
+
+
+        ' Check bounds
+        If pos.X < 0 Then pos.X = 0
+        If pos.X > ScreenWidth() - box.Width Then pos.X = ScreenWidth() - box.Width
+
+        If pos.Y < 0 Then pos.Y = 0
+        If pos.Y > ScreenHeight() - box.Height Then pos.Y = ScreenHeight() - box.Height
+
 
         MyBase.Update(gameTime)
     End Sub
@@ -62,11 +80,12 @@ Public Class Game1
         GraphicsDevice.Clear(Color.CornflowerBlue)
 
         ' Todo: Your drawing code here
-        _spriteBatch.Begin()
 
-        _spriteBatch.Draw(_texture, _pos, Color.White)
+        mainSB.Begin()
 
-        _spriteBatch.End()
+        mainSB.Draw(box, pos, Color.White)
+
+        mainSB.End()
 
         MyBase.Draw(gameTime)
     End Sub
