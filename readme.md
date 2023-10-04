@@ -2,6 +2,8 @@
 
 Last update: 04-10-2023
 
+![preview](./preview.png)
+
 This project requires at least **Visual Studio 2019** & .NET Framework 4.8.
 
 Download & install **MonoGame Pipeline Tool** to compile the XNA Framework assets here: https://github.com/MonoGame/MonoGame/releases/tag/v3.7.1
@@ -10,6 +12,8 @@ This project depends on these NuGet packages:
 MonoGame.Framework.DesktopGL (3.8.0)
 MonoGame.Framework.WindowsDX (3.8.0)
 MonoGame.Content.Builder.Task (3.8.0)
+
+The content builder package will compile the assets listed in **Contents.mgcb** file.
 
 
 ## Building & Running

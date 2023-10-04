@@ -8,8 +8,10 @@ Public Class Game1
     Private gdm As GraphicsDeviceManager
     Private mainSB As SpriteBatch
     Private box As Texture2D
+    Private logo As Texture2D
 
     Private pos As Vector2
+    Private font As SpriteFont
 
     Public Sub New()
         gdm = New GraphicsDeviceManager(Me)
@@ -21,6 +23,8 @@ Public Class Game1
     Protected Overrides Sub Initialize()
         ' Todo: Add your initialisation logic here
 
+        pos = New Vector2(100, 100)
+
         MyBase.Initialize()
     End Sub
 
@@ -30,6 +34,10 @@ Public Class Game1
 
         ' by Limezu: https://limezu.itch.io/modernexteriors
         box = Content.Load(Of Texture2D)("box")
+
+        logo = Content.Load(Of Texture2D)("monogame_logo")
+
+        font = Content.Load(Of SpriteFont)("sample_font")
     End Sub
 
 
@@ -83,7 +91,12 @@ Public Class Game1
 
         mainSB.Begin()
 
+        mainSB.Draw(logo, New Vector2((ScreenWidth() - logo.Width) / 2, (ScreenHeight() - logo.Height) / 2), Color.White)
+
         mainSB.Draw(box, pos, Color.White)
+
+        mainSB.DrawString(font, "MonoGame Boilerplate", Vector2.Zero, Color.White)
+        mainSB.DrawString(font, $"Pos: {pos.X} {pos.Y}", New Vector2(0, 20), Color.White)
 
         mainSB.End()
 
