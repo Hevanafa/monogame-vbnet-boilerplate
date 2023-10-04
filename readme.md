@@ -9,8 +9,6 @@ Download & install **MonoGame Pipeline Tool** to compile the XNA Framework asset
 This project depends on these NuGet packages:
 MonoGame.Framework.DesktopGL (3.8.0)
 MonoGame.Framework.WindowsDX (3.8.0)
-
-This one is optional:
 MonoGame.Content.Builder.Task (3.8.0)
 
 
@@ -21,5 +19,4 @@ Before running the programme, follow these procedures:
 1. Open MonoGame Pipeline tool,
 2. Load **Contents.mgcb**,
 3. After that, press build on the toolbar,
-4. Finally, press Shift+F5 on the IDE after the build process is done.
-
+4. If the process is succesful, then you can proceed to run the programme in debug mode.
